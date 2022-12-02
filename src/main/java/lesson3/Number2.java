@@ -13,7 +13,7 @@ public class Number2 {
 
         WebDriverManager.chromedriver().setup();
         ChromeOptions options = new ChromeOptions();
-        options.addArguments("--incognito");
+       // options.addArguments("--incognito");
         // options.addArguments("--headless");
         options.addArguments("start-maximized");
 

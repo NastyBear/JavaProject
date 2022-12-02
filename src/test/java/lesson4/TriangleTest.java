@@ -9,8 +9,6 @@ import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.platform.commons.logging.Logger;
 import org.junit.platform.commons.logging.LoggerFactory;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
 
 public class TriangleTest {
    static Logger logger = LoggerFactory.getLogger(TriangleTest.class);
@@ -21,7 +19,7 @@ public class TriangleTest {
 
         Triangle triangle = new Triangle();
         Assertions.assertThrows(MyException.class,()->triangle.square(-8,5,6));
-
+   // logger.info("Инфо");
  }
 
 
