@@ -36,7 +36,7 @@ public class AbstractWithoutRegisteringTest {
     }
     @BeforeEach
     void goTo(){
-        logger.info("Переход на главную страницу не авторизованного пользователя");
+        logger.info("Переход на главную страницу неавторизованного пользователя");
         Assertions.assertDoesNotThrow(()->driver.navigate().to("https://www.livejournal.com"),"Страница недоступна");
 
     }

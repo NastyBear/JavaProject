@@ -1,6 +1,7 @@
 package lesson5;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
+import lesson6.Page;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
@@ -23,7 +24,7 @@ public abstract class AbstractTest {
         return driver;
     }
 
-    org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(AbstractTest.class);
+    static org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(AbstractTest.class);
 
     @BeforeAll
     static void init(){
@@ -34,25 +35,21 @@ public abstract class AbstractTest {
         options.addArguments("start-maximized");
         driver=new ChromeDriver(options);
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(3));
-
+    logger.info("Главная страница");
 
     }
     @BeforeEach
-    void goTo(){
-        logger.info("Авторизация успешна");
-        Assertions.assertDoesNotThrow(()->driver.navigate().to("https://www.livejournal.com"),"Страница недоступна");
-
-        WebElement webElement1 = getDriver().findElement(By.xpath(".//*[@class ='s-do']/li[2]/a"));
-        webElement1.click();
-        WebElement webElement2 = getDriver().findElement(By.id("user"));
-        webElement2.sendKeys("User2408");
-        WebElement webElement3 = getDriver().findElement(By.id("lj_loginwidget_password"));
-        webElement3.sendKeys("12Jony34_Ga");
-        WebElement webElement4 = getDriver().findElement(By.xpath(".//*[@class='b-loginform__form pkg lj_login_form ng-valid ng-valid-maxlength ng-dirty ng-valid-parse']/button"));
-        webElement4.click();
+    void goTo() {
+       Assertions.assertDoesNotThrow(() -> driver.navigate().to("https://www.livejournal.com"), "Страница недоступна");
+        Page page = new Page(getDriver());
+        page.clickInput()
+                .clickLogin()
+                .clickPassword()
+                .clickInputPage();
 
          Assertions.assertEquals("Главное — ЖЖ",getDriver().getTitle(),"страница недоступна");
     }
+
 
     @AfterAll
     static void close(){
