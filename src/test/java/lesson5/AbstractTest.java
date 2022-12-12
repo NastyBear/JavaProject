@@ -2,10 +2,7 @@ package lesson5;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 import lesson6.Page;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.*;
 import org.junit.platform.commons.logging.Logger;
 import org.junit.platform.commons.logging.LoggerFactory;
 import org.openqa.selenium.By;
@@ -13,8 +10,11 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.logging.LogEntry;
+import org.openqa.selenium.logging.LogType;
 
 import java.time.Duration;
+import java.util.List;
 
 public abstract class AbstractTest {
 
@@ -47,12 +47,23 @@ public abstract class AbstractTest {
                 .clickPassword()
                 .clickInputPage();
 
-         Assertions.assertEquals("Главное — ЖЖ",getDriver().getTitle(),"страница недоступна");
+         Assertions.assertEquals("Живой Журнал | Блоги | Сообщества | Рейтинги",getDriver().getTitle(),"страница недоступна");
     }
 
 
     @AfterAll
     static void close(){
       //  driver.quit();
+    }
+    @AfterEach
+    public void check(){
+        List<LogEntry> allLogRows = getDriver().manage().logs().get(LogType.BROWSER).getAll();
+        if (!allLogRows.isEmpty()){
+            if (allLogRows.size()>0){
+                allLogRows.forEach(logEntry -> {
+                    System.out.println(logEntry.getMessage());
+                });
+            }
+        }
     }
 }

@@ -1,5 +1,9 @@
 package lesson5;
 
+import io.qameta.allure.Description;
+import io.qameta.allure.Severity;
+import io.qameta.allure.SeverityLevel;
+import io.qameta.allure.Story;
 import lesson6.Page;
 import lesson6.WithoutRegistering;
 import org.junit.jupiter.api.Assertions;
@@ -7,11 +11,13 @@ import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-
+@Story("Проверка неавторизованного пользователя")
 public class WithoutRegisteringTest extends AbstractWithoutRegisteringTest {
 
 
     @Test
+    @Description("Выполнение поиска неавторизованного пользователя")
+    @Severity(SeverityLevel.MINOR)
     void searchM() {
         logger.info("Поиск неавторизованного пользователя");
         WithoutRegistering withoutRegistering = new WithoutRegistering(getDriver());
@@ -21,6 +27,8 @@ public class WithoutRegisteringTest extends AbstractWithoutRegisteringTest {
     }
 
     @Test
+    @Description("Смена языка неавторизованного пользователя")
+    @Severity(SeverityLevel.MINOR)
     void language() {
         logger.info("Смена языка неавторизованного пользователя");
 
@@ -31,6 +39,8 @@ public class WithoutRegisteringTest extends AbstractWithoutRegisteringTest {
     }
 
     @Test
+    @Description("Неверный ввод пароля при авторизации")
+    @Severity(SeverityLevel.CRITICAL)
     void invalidInput() {
         logger.info("Неверный ввод пароля при авторизации");
 
